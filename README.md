@@ -13,7 +13,13 @@ Intnetion for this type of separation is to clearly communicate what user can ex
 
 ### Running Checks Before each Commit
 
-In order to add quality code checker as mandatory step prior to code being commit, you can add this code as `pre-commit` hook:
+In order to add quality code checker as mandatory step prior to code being committed, you can use `pre-commit` hook. Open:
+
+```bash
+vi .git/hooks/pre-commit
+```
+
+and put:
 
 ```php
 #!/usr/bin/php
