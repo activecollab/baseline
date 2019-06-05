@@ -60,7 +60,6 @@ class ConfigFactory implements ConfigFactoryInterface
                     'no_multiline_whitespace_around_double_arrow' => true,
                     'hash_to_slash_comment' => true,
                     'include' => true,
-                    'no_alias_functions' => true,
                     'trailing_comma_in_multiline_array' => true,
                     'no_leading_namespace_whitespace' => true,
                     'no_blank_lines_after_class_opening' => true,

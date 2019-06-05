@@ -14,7 +14,10 @@ use ActiveCollab\Baseline\CodeStyleFixer\ConfigFactory;
 
 $code_style = new ConfigFactory(
     __DIR__,
-    null,
+    [
+        'src',
+        'test',
+    ],
     'ActiveCollab Baseline',
     'ActiveCollab, Inc',
     'support@activecollab.com'
