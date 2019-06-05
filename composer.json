@@ -1,0 +1,17 @@
+{
+    "name": "activecollab/baseline",
+    "description": "Baseline for ActiveCollab project and components",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=7.2",
+        "friendsofphp/php-cs-fixer": "^2.0",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ActiveCollab\\Baseline\\": "src",
+            "ActiveCollab\\Baseline\\Test\\": "test/src"
+        }
+    }
+}
