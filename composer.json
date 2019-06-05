@@ -4,7 +4,7 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.1",
         "friendsofphp/php-cs-fixer": "^2.0",
         "phpunit/phpunit": "^7.0"
     },
