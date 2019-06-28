@@ -160,10 +160,10 @@ class EslintQualityCheckTest extends TestCase
     }
 
     /**
-     * @expectedException \ActiveCollab\Baseline\CodeQualityChecker\QualityCheck\CheckException
+     * @expectedException \PHPUnit\Framework\Error\Warning
      * @expectedExceptionMessage src/index.js
      */
-    public function testWillPropagateFailureException()
+    public function testWillThrowWarningMessage()
     {
         /** @var MockObject|ProcessFailedException $process_failed_exception */
         $process_failed_exception = $this->createMock(ProcessFailedException::class);
@@ -189,13 +189,17 @@ class EslintQualityCheckTest extends TestCase
             ->method('getSignature')
             ->willReturn('file-sig');
 
+        $output_callback = function (string $message) use (&$messages) {
+            $messages[] = $message;
+        };
+
         $check = new EslintQualityCheck(
             $repository,
             $command_runner,
             $file_signature_resolver,
             'eslint',
             'test/fixtures/test-eslint/some-file.js',
-            null,
+            $output_callback,
             new FilePathMatcher('src', 'js')
         );
 

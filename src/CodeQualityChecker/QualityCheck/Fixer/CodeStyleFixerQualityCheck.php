@@ -22,7 +22,6 @@ class CodeStyleFixerQualityCheck extends QualityCheck
 {
     private $php_cs_fixer_binary;
     private $php_cs_fixer_config_file;
-    private $file_path_matchers;
 
     public function __construct(
         CodeRepositoryInterface $repository,
@@ -34,11 +33,10 @@ class CodeStyleFixerQualityCheck extends QualityCheck
         FilePathMatcherInterface ...$file_path_matchers
     )
     {
-        parent::__construct($repository, $command_runner, $file_signature_resolver, $output_callback);
+        parent::__construct($repository, $command_runner, $file_signature_resolver, $output_callback, ...$file_path_matchers);
 
         $this->php_cs_fixer_binary = $php_cs_fixer_binary;
         $this->php_cs_fixer_config_file = $php_cs_fixer_config_file;
-        $this->file_path_matchers = $file_path_matchers;
     }
 
     public function check(string $project_path, array $changed_files): void
@@ -49,43 +47,25 @@ class CodeStyleFixerQualityCheck extends QualityCheck
         foreach ($changed_files as $changed_file) {
             if ($this->shouldFixFile($changed_file)) {
                 $this->fixFile($changed_file);
-            } else {
-                $this->printToOutput(sprintf('    Skipping %s...', $changed_file));
             }
         }
 
         $this->printToOutput('');
     }
 
-    private function shouldFixFile(string $file_path): bool
-    {
-        if (!$this->repository->fileExists($file_path)) {
-            return false;
-        }
-
-        foreach ($this->file_path_matchers as $file_path_matcher) {
-            if ($file_path_matcher->shouldCheck($file_path)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private function fixFile(string $file_path): void
     {
         $this->printToOutput(sprintf('    Fixing file %s...', $file_path));
-
+        $command = sprintf(
+            '%s --config=%s --verbose fix %s',
+            $this->php_cs_fixer_binary,
+            escapeshellarg($this->php_cs_fixer_config_file),
+            escapeshellarg($file_path)
+        );
         try {
             $file_signature = $this->getFileSignature($file_path);
 
-            $this->runCommand(
-                $this->prepareCodeStyleFixerCommand(
-                    $this->php_cs_fixer_binary,
-                    $this->php_cs_fixer_config_file,
-                    $file_path
-                )
-            );
+            $this->runCommand($command);
 
             if ($file_signature != $this->getFileSignature($file_path)) {
                 $this->printToOutput(sprintf('    File %s has been modified. Staging changes...', $file_path));
@@ -98,19 +78,5 @@ class CodeStyleFixerQualityCheck extends QualityCheck
                 $e
             );
         }
-    }
-
-    private function prepareCodeStyleFixerCommand(
-        string $php_cs_fixer_binary,
-        string $php_cs_fixer_config_file,
-        string $file_path
-    ): string
-    {
-        return sprintf(
-            '%s --config=%s --verbose fix %s',
-            $php_cs_fixer_binary,
-            escapeshellarg($php_cs_fixer_config_file),
-            escapeshellarg($file_path)
-        );
     }
 }
