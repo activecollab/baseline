@@ -12,6 +12,7 @@ namespace ActiveCollab\Baseline\Test\CodeQualityChecker\Fixer;
 
 use ActiveCollab\Baseline\CodeQualityChecker\FilePathMatcher\FilePathMatcher;
 use ActiveCollab\Baseline\CodeQualityChecker\FileSignatureResolver\FileSignatureResolverInterface;
+use ActiveCollab\Baseline\CodeQualityChecker\QualityCheck\CheckException;
 use ActiveCollab\Baseline\CodeQualityChecker\QualityCheck\Fixer\CodeStyleFixerQualityCheck;
 use ActiveCollab\Baseline\CodeRepository\CodeRepositoryInterface;
 use ActiveCollab\Baseline\CommandRunner\CommandRunnerInterface;
@@ -162,16 +163,15 @@ class CodeStyleFixerQualityCheckTest extends TestCase
             ]
         );
 
-        $this->assertInternalType('array', $messages);
+        $this->assertIsArray($messages);
         $this->assertNotEmpty($messages);
     }
 
-    /**
-     * @expectedException \ActiveCollab\Baseline\CodeQualityChecker\QualityCheck\CheckException
-     * @expectedExceptionMessage src/stdClass.php
-     */
     public function testWillPropagateFailureException()
     {
+        $this->expectException(CheckException::class);
+        $this->expectExceptionMessage('src/stdClass.php');
+
         /** @var MockObject|ProcessFailedException $process_failed_exception */
         $process_failed_exception = $this->createMock(ProcessFailedException::class);
 

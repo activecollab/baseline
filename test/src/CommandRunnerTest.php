@@ -12,21 +12,21 @@ namespace ActiveCollab\Baseline\Test;
 
 use ActiveCollab\Baseline\CommandRunner\CommandRunner;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class CommandRunnerTest extends TestCase
 {
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\ProcessFailedException
-     * @expectedExceptionMessage The command "exit 255" failed
-     */
     public function testWillThrowExceptionOnUnsucessfulRun()
     {
+        $this->expectExceptionMessage('Command not found');
+        $this->expectException(ProcessFailedException::class);
+
         (new CommandRunner(__DIR__))->runCommand('exit 255');
     }
 
     public function testWillRunCommand()
     {
-        $this->assertContains(
+        $this->assertStringContainsString(
             basename(__FILE__),
             (new CommandRunner(__DIR__))->runCommand('ls')
         );

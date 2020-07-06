@@ -92,11 +92,7 @@ class CodeStyleFixerQualityCheck extends QualityCheck
                 $this->repository->stageFile($file_path);
             }
         } catch (Exception $e) {
-            throw new CheckException(
-                sprintf('Failed to fix file %s. Run php-cs-fixer on your code.', $file_path),
-                0,
-                $e
-            );
+            throw new CheckException(sprintf('Failed to fix file %s. Run php-cs-fixer on your code.', $file_path), 0, $e);
         }
     }
 
@@ -109,8 +105,8 @@ class CodeStyleFixerQualityCheck extends QualityCheck
         return sprintf(
             '%s --config=%s --verbose fix %s',
             $php_cs_fixer_binary,
-            escapeshellarg($php_cs_fixer_config_file),
-            escapeshellarg($file_path)
+            $php_cs_fixer_config_file,
+            $file_path
         );
     }
 }

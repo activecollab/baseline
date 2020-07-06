@@ -24,7 +24,11 @@ class CommandRunner implements CommandRunnerInterface
 
     public function runCommand(string $command, string $working_directory = null): string
     {
-        $process = new Process($command, $working_directory ?? $this->default_working_directory);
+        $process = new Process(
+            explode(' ', $command),
+            $working_directory ?? $this->default_working_directory
+        );
+
         $process->enableOutput();
         $process->run();
 

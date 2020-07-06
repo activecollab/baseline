@@ -19,8 +19,6 @@ class CommittedFilesResolverTest extends TestCase
 {
     /**
      * @dataProvider provideDataForRepositoryPathTest
-     * @param string $repository_path
-     * @param string $expected_repository_path
      */
     public function testWillTrimTrailingSlashFromRepositoryPath(
         string $repository_path,
@@ -45,9 +43,6 @@ class CommittedFilesResolverTest extends TestCase
 
     /**
      * @dataProvider provideDataForFilePathTest
-     * @param string $repository_path
-     * @param string $file_path
-     * @param string $expected_file_path
      */
     public function testWillReturnFilePath(string $repository_path, string $file_path, string $expected_file_path)
     {
@@ -70,8 +65,6 @@ class CommittedFilesResolverTest extends TestCase
 
     /**
      * @dataProvider provideDataForFileExistsTest
-     * @param string $file_path
-     * @param bool   $expected_exists
      */
     public function testWillProperlyCheckIfFileExists(string $file_path, bool $expected_exists)
     {
@@ -110,7 +103,7 @@ class CommittedFilesResolverTest extends TestCase
 
         $committed_files = $repo->getChangedFiles();
 
-        $this->assertInternalType('array', $committed_files);
+        $this->assertIsArray($committed_files);
         $this->assertEmpty($committed_files);
     }
 
@@ -155,7 +148,7 @@ class CommittedFilesResolverTest extends TestCase
         $command_runner
             ->expects($this->once())
             ->method('runCommand')
-            ->with(sprintf('git add %s', escapeshellarg($file_to_add)));
+            ->with(sprintf('git add %s', $file_to_add));
 
         (new CodeRepository(__DIR__, $command_runner))
             ->stageFile($file_to_add);

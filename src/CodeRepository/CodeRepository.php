@@ -75,7 +75,7 @@ class CodeRepository implements CodeRepositoryInterface
     {
         $this->command_runner->runCommand(
             $this->prepareGitCommand(
-                sprintf('add %s', escapeshellarg($file_path))
+                sprintf('add %s', $file_path)
             )
         );
     }

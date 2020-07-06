@@ -14,17 +14,17 @@ use ActiveCollab\Baseline\CodeQualityChecker\CodeQualityChecker;
 use ActiveCollab\Baseline\CodeQualityChecker\QualityCheck\QualityCheckInterface;
 use ActiveCollab\Baseline\CodeRepository\CodeRepositoryInterface;
 use Exception;
+use LogicException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class CodeQualityCheckerTest extends TestCase
 {
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Code quality can't be checked without quality checks
-     */
     public function testWillThrowExceptionOnMissingCheckers()
     {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage("Code quality can't be checked without quality checks");
+
         /** @var CodeRepositoryInterface $code_repository */
         $code_repository = $this->createMock(CodeRepositoryInterface::class);
 
@@ -75,7 +75,7 @@ class CodeQualityCheckerTest extends TestCase
                 new Exception('First message', 0, new Exception('Second message'))
             );
 
-        $this->assertInternalType('array', $messages);
+        $this->assertIsArray($messages);
         $this->assertNotEmpty($messages);
 
         $first_message_found = false;

@@ -22,15 +22,13 @@ class FileSignatureResolverTest extends TestCase
         $this->assertSame(md5_file($file_to_check), (new FileSignatureResolver())->getSignature($file_to_check));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage not found
-     */
     public function testWillThrowExceptionOnMissingFile()
     {
+        $this->expectExceptionMessage('not found');
+        $this->expectException(\RuntimeException::class);
         $file_to_check = dirname(__DIR__) . '/fixtures/not-found.php';
 
-        $this->assertFileNotExists($file_to_check);
+        $this->assertFileDoesNotExist($file_to_check);
 
         (new FileSignatureResolver())->getSignature($file_to_check);
     }

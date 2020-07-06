@@ -18,7 +18,7 @@ class CodeStyleFixerTest extends TestCase
 {
     private $project_root;
 
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
 
@@ -27,7 +27,6 @@ class CodeStyleFixerTest extends TestCase
 
     /**
      * @dataProvider produceExpectedFilesForFinderInclusionTest
-     * @param string $file_path_expected_to_find
      */
     public function testFinderInclusion(string $file_path_expected_to_find)
     {
@@ -50,7 +49,6 @@ class CodeStyleFixerTest extends TestCase
 
     /**
      * @dataProvider produceExpectedFilesForFinderExclusionTest
-     * @param string $file_path_expected_to_find
      */
     public function testFinderExclusion(string $file_path_expected_to_find)
     {
@@ -94,13 +92,13 @@ class CodeStyleFixerTest extends TestCase
         string $project_contact_address = null
     )
     {
-        return (new ConfigFactory(
+        return new ConfigFactory(
             $project_root ?? $this->project_root,
             $dirs_to_scan,
             $project_name ?? 'Project',
             $project_author ?? 'Author',
             $project_contact_address ?? 'author@example.com'
-        ));
+        );
     }
 
     private function getFilesFoundByFinder(ConfigInterface $config): array
