@@ -111,6 +111,7 @@ class ConfigFactory implements ConfigFactoryInterface
                     'lowercase_cast' => true,
                     'lowercase_keywords' => true,
                     'yoda_style' => false,
+                    'single_line_throw' => false,
                 ]
             );
     }
