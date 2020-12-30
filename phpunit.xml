@@ -1,33 +1,19 @@
-<phpunit
-        bootstrap="./test/bootstrap.php"
-        backupGlobals="false"
-        backupStaticAttributes="false"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-        stopOnError="false"
-        stopOnFailure="false"
-        stopOnIncomplete="false"
-        stopOnSkipped="false"
-        processIsolation="false"
-        colors="true">
-    <php>
-        <ini name="memory_limit" value="-1"/>
-    </php>
-
-    <testsuites>
-        <testsuite name="PhpCloud.org Meta">
-            <directory>./test/src</directory>
-        </testsuite>
-    </testsuites>
-
-    <logging>
-        <log type="junit" target="./test/log/junit.xml"/>
-    </logging>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>./src</directory>
-        </whitelist>
-    </filter>
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./test/bootstrap.php" backupGlobals="false" backupStaticAttributes="false" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" processIsolation="false" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory>./src</directory>
+    </include>
+  </coverage>
+  <php>
+    <ini name="memory_limit" value="-1"/>
+  </php>
+  <testsuites>
+    <testsuite name="PhpCloud.org Meta">
+      <directory>./test/src</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <junit outputFile="./test/log/junit.xml"/>
+  </logging>
 </phpunit>

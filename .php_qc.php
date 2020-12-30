@@ -33,6 +33,7 @@ return new CodeQualityChecker(
         $file_signature_resolver,
         'php vendor/bin/php-cs-fixer',
         '.php_cs.php',
+        false,
         $output_callback,
         new FilePathMatcher('src', 'php'),
         new FilePathMatcher('test/src', 'php')

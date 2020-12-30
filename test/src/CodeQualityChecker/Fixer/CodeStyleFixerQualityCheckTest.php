@@ -51,6 +51,7 @@ class CodeStyleFixerQualityCheckTest extends TestCase
             $file_signature_resolver,
             'php-cs-fixer',
             '.php_cs.php',
+            false,
             null,
             new FilePathMatcher('src', 'php'),
             new FilePathMatcher('test/src', 'php')
@@ -95,6 +96,7 @@ class CodeStyleFixerQualityCheckTest extends TestCase
             $file_signature_resolver,
             'php-cs-fixer',
             '.php_cs.php',
+            false,
             null,
             new FilePathMatcher('src', 'php'),
             new FilePathMatcher('test/src', 'php')
@@ -152,6 +154,7 @@ class CodeStyleFixerQualityCheckTest extends TestCase
             $file_signature_resolver,
             'php-cs-fixer',
             '.php_cs.php',
+            false,
             $output_callback,
             new FilePathMatcher('src', 'php')
         );
@@ -202,6 +205,7 @@ class CodeStyleFixerQualityCheckTest extends TestCase
             $file_signature_resolver,
             'php-cs-fixer',
             '.php_cs.php',
+            false,
             null,
             new FilePathMatcher('src', 'php'),
             new FilePathMatcher('test/src', 'php')

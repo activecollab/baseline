@@ -22,6 +22,7 @@ class CodeStyleFixerQualityCheck extends QualityCheck
 {
     private $php_cs_fixer_binary;
     private $php_cs_fixer_config_file;
+    private $php_cs_fixer_ignore_env;
 
     public function __construct(
         CodeRepositoryInterface $repository,
@@ -29,14 +30,22 @@ class CodeStyleFixerQualityCheck extends QualityCheck
         FileSignatureResolverInterface $file_signature_resolver,
         string $php_cs_fixer_binary = 'php-cs-fixer',
         string $php_cs_fixer_config_file = '.php_cs.php',
+        bool $php_cs_fixer_ignore_env = false,
         callable $output_callback = null,
         FilePathMatcherInterface ...$file_path_matchers
     )
     {
-        parent::__construct($repository, $command_runner, $file_signature_resolver, $output_callback, ...$file_path_matchers);
+        parent::__construct(
+            $repository,
+            $command_runner,
+            $file_signature_resolver,
+            $output_callback,
+            ...$file_path_matchers
+        );
 
         $this->php_cs_fixer_binary = $php_cs_fixer_binary;
         $this->php_cs_fixer_config_file = $php_cs_fixer_config_file;
+        $this->php_cs_fixer_ignore_env = $php_cs_fixer_ignore_env;
     }
 
     public function check(string $project_path, array $changed_files): void
@@ -57,7 +66,8 @@ class CodeStyleFixerQualityCheck extends QualityCheck
     {
         $this->printToOutput(sprintf('    Fixing file %s...', $file_path));
         $command = sprintf(
-            '%s --config=%s --verbose fix %s',
+            '%s%s --config=%s --verbose fix %s',
+            $this->php_cs_fixer_ignore_env ? 'env PHP_CS_FIXER_IGNORE_ENV=1 ' : '',
             $this->php_cs_fixer_binary,
             $this->php_cs_fixer_config_file,
             $file_path
