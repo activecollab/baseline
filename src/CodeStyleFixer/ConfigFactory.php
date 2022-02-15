@@ -58,9 +58,19 @@ class ConfigFactory implements ConfigFactoryInterface
                     'no_whitespace_before_comma_in_array' => true,
                     'whitespace_after_comma_in_array' => true,
                     'no_multiline_whitespace_around_double_arrow' => true,
-                    'hash_to_slash_comment' => true,
+                    'single_line_comment_style' => [
+                        'comment_types' => [
+                            'asterisk',
+                            'hash',
+                        ]
+                    ],
                     'include' => true,
-                    'trailing_comma_in_multiline_array' => true,
+                    'trailing_comma_in_multiline' => [
+                        'elements' => [
+                            'arrays',
+                            'arguments',
+                        ],
+                    ],
                     'no_leading_namespace_whitespace' => true,
                     'no_blank_lines_after_class_opening' => true,
                     'no_blank_lines_after_phpdoc' => true,
@@ -96,18 +106,33 @@ class ConfigFactory implements ConfigFactoryInterface
                     'no_mixed_echo_print' => false,
                     'concat_space' => false,
                     'simplified_null_return' => false,
-                    'blank_line_before_return' => true,
+                    'blank_line_before_statement' => [
+                        'statements' => [
+                            'break',
+                            'continue',
+                            'declare',
+                            'return',
+                            'throw',
+                            'try',
+                        ]
+                    ],
                     'class_attributes_separation' => [
                         'elements' => [],
                     ],
-                    'no_extra_consecutive_blank_lines' => true,
+                    'no_extra_blank_lines' => [
+                        'tokens' => [
+                            'extra',
+                        ]
+                    ],
                     'linebreak_after_opening_tag' => true,
                     'native_function_casing' => true,
                     'no_closing_tag' => true,
                     'no_empty_comment' => true,
                     'no_empty_statement' => true,
                     'no_leading_import_slash' => true,
-                    'lowercase_constants' => true,
+                    'constant_case' => [
+                        'case' => 'lower',
+                    ],
                     'lowercase_cast' => true,
                     'lowercase_keywords' => true,
                     'yoda_style' => false,
