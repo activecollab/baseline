@@ -68,7 +68,7 @@ class ConfigFactory implements ConfigFactoryInterface
                     'trailing_comma_in_multiline' => [
                         'elements' => [
                             'arrays',
-                            'arguments',
+                            // 'arguments',
                         ],
                     ],
                     'no_leading_namespace_whitespace' => true,
