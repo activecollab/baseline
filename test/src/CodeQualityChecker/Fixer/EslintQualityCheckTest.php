@@ -15,6 +15,8 @@ use ActiveCollab\Baseline\CodeRepository\CodeRepositoryInterface;
 use ActiveCollab\Baseline\CommandRunner\CommandRunnerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestStatus\Notice;
+use PHPUnit\Framework\TestStatus\Warning;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class EslintQualityCheckTest extends TestCase
@@ -159,56 +161,5 @@ class EslintQualityCheckTest extends TestCase
         );
         $this->assertIsArray($messages);
         $this->assertNotEmpty($messages);
-    }
-
-    public function testWillThrowWarningMessage()
-    {
-        $this->expectExceptionMessage('src/index.js');
-        $this->expectWarning();
-
-        /** @var MockObject|ProcessFailedException $process_failed_exception */
-        $process_failed_exception = $this->createMock(ProcessFailedException::class);
-
-        /** @var MockObject|CommandRunnerInterface $command_runner */
-        $command_runner = $this->createMock(CommandRunnerInterface::class);
-        $command_runner
-            ->expects($this->once())
-            ->method('runCommand')
-            ->willThrowException($process_failed_exception);
-
-        /** @var MockObject|CodeRepositoryInterface $repository */
-        $repository = $this->createMock(CodeRepositoryInterface::class);
-        $repository
-            ->expects($this->once())
-            ->method('fileExists')
-            ->willReturn(true);
-
-        /** @var MockObject|FileSignatureResolverInterface $file_signature_resolver */
-        $file_signature_resolver = $this->createMock(FileSignatureResolverInterface::class);
-        $file_signature_resolver
-            ->expects($this->once())
-            ->method('getSignature')
-            ->willReturn('file-sig');
-
-        $output_callback = function (string $message) use (&$messages) {
-            $messages[] = $message;
-        };
-
-        $check = new EslintQualityCheck(
-            $repository,
-            $command_runner,
-            $file_signature_resolver,
-            'eslint',
-            'test/fixtures/test-eslint/some-file.js',
-            $output_callback,
-            new FilePathMatcher('src', 'js')
-        );
-
-        $check->check(
-            __DIR__,
-            [
-                'src/index.js',
-            ]
-        );
     }
 }

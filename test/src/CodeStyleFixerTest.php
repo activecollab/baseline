@@ -22,13 +22,13 @@ class CodeStyleFixerTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        $this->project_root = dirname(dirname(__DIR__));
+        $this->project_root = dirname(__DIR__, 2);
     }
 
     /**
      * @dataProvider produceExpectedFilesForFinderInclusionTest
      */
-    public function testFinderInclusion(string $file_path_expected_to_find)
+    public function testFinderInclusion(string $file_path_expected_to_find): void
     {
         $config = $this->getFactory()->getConfig();
 
@@ -38,11 +38,11 @@ class CodeStyleFixerTest extends TestCase
         );
     }
 
-    public function produceExpectedFilesForFinderInclusionTest()
+    public static function produceExpectedFilesForFinderInclusionTest(): array
     {
         return [
-            [$this->project_root . '/src/CodeStyleFixer/ConfigFactoryInterface.php'],
-            [$this->project_root . '/test/bootstrap.php'],
+            [dirname(__DIR__, 2) . '/src/CodeStyleFixer/ConfigFactoryInterface.php'],
+            [dirname(__DIR__, 2) . '/test/bootstrap.php'],
             [__FILE__],
         ];
     }
@@ -50,7 +50,7 @@ class CodeStyleFixerTest extends TestCase
     /**
      * @dataProvider produceExpectedFilesForFinderExclusionTest
      */
-    public function testFinderExclusion(string $file_path_expected_to_find)
+    public function testFinderExclusion(string $file_path_expected_to_find): void
     {
         $config = $this->getFactory()->getConfig();
 
@@ -60,12 +60,12 @@ class CodeStyleFixerTest extends TestCase
         );
     }
 
-    public function produceExpectedFilesForFinderExclusionTest()
+    public static function produceExpectedFilesForFinderExclusionTest(): array
     {
         return [
-            [$this->project_root . '/.php_cs.cache'],
-            [$this->project_root . '/.php_cs.php'],
-            [$this->project_root . '/test/log/.gitignore'],
+            [dirname(__DIR__, 2) . '/.php_cs.cache'],
+            [dirname(__DIR__, 2) . '/.php_cs.php'],
+            [dirname(__DIR__, 2) . '/test/log/.gitignore'],
         ];
     }
 

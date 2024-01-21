@@ -23,7 +23,7 @@ class CommittedFilesResolverTest extends TestCase
     public function testWillTrimTrailingSlashFromRepositoryPath(
         string $repository_path,
         string $expected_repository_path
-    )
+    ): void
     {
         /** @var CommandRunnerInterface|MockObject $command_runner */
         $command_runner = $this->createMock(CommandRunnerInterface::class);
@@ -33,7 +33,7 @@ class CommittedFilesResolverTest extends TestCase
         $this->assertSame($expected_repository_path, $repo->getRepositoryPath());
     }
 
-    public function provideDataForRepositoryPathTest(): array
+    public static function provideDataForRepositoryPathTest(): array
     {
         return [
             ['/tmp', '/tmp'],
@@ -44,7 +44,11 @@ class CommittedFilesResolverTest extends TestCase
     /**
      * @dataProvider provideDataForFilePathTest
      */
-    public function testWillReturnFilePath(string $repository_path, string $file_path, string $expected_file_path)
+    public function testWillReturnFilePath(
+        string $repository_path,
+        string $file_path,
+        string $expected_file_path,
+    ): void
     {
         /** @var CommandRunnerInterface|MockObject $command_runner */
         $command_runner = $this->createMock(CommandRunnerInterface::class);
@@ -54,7 +58,7 @@ class CommittedFilesResolverTest extends TestCase
         $this->assertSame($expected_file_path, $repo->getFilePath($file_path));
     }
 
-    public function provideDataForFilePathTest(): array
+    public static function provideDataForFilePathTest(): array
     {
         return [
             ['/tmp', 'info.php', '/tmp/info.php'],
@@ -66,7 +70,7 @@ class CommittedFilesResolverTest extends TestCase
     /**
      * @dataProvider provideDataForFileExistsTest
      */
-    public function testWillProperlyCheckIfFileExists(string $file_path, bool $expected_exists)
+    public function testWillProperlyCheckIfFileExists(string $file_path, bool $expected_exists): void
     {
         /** @var CommandRunnerInterface|MockObject $command_runner */
         $command_runner = $this->createMock(CommandRunnerInterface::class);
@@ -79,7 +83,7 @@ class CommittedFilesResolverTest extends TestCase
         $this->assertSame($expected_exists, $repo->fileExists($file_path));
     }
 
-    public function provideDataForFileExistsTest(): array
+    public static function provideDataForFileExistsTest(): array
     {
         return [
             ['existing-file.php', true],

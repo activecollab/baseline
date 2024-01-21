@@ -26,8 +26,8 @@ class FilePathMatcherTest extends TestCase
         string $dir,
         string $extension,
         string $file_path,
-        bool $expected_match
-    )
+        bool $expected_match,
+    ): void
     {
         $this->assertSame(
             $expected_match,
@@ -35,7 +35,7 @@ class FilePathMatcherTest extends TestCase
         );
     }
 
-    public function provideDataForMatchTest(): array
+    public static function provideDataForMatchTest(): array
     {
         return [
             ['src', 'php', 'src/AwesomeFile.php', true],
