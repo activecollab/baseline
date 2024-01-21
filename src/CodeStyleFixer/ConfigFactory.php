@@ -78,7 +78,7 @@ class ConfigFactory implements ConfigFactoryInterface
                     'phpdoc_summary' => true,
                     'self_accessor' => false,
                     'no_trailing_comma_in_singleline_array' => true,
-                    'single_blank_line_before_namespace' => true,
+                    // 'single_blank_line_before_namespace' => true,
                     'space_after_semicolon' => true,
                     'no_singleline_whitespace_before_semicolons' => true,
                     'cast_spaces' => true,
