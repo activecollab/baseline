@@ -94,6 +94,10 @@ class ConfigFactory implements ConfigFactoryInterface
                         'syntax' => 'short',
                     ],
                     'braces' => false,
+                    'single_line_empty_body' => true,
+                    'braces_position' => [
+                        'functions_opening_brace' => 'next_line_unless_newline_at_signature_end',
+                    ],
                     'increment_style' => false,
                     'phpdoc_align' => true,
                     'return_type_declaration' => true,
@@ -142,7 +146,6 @@ class ConfigFactory implements ConfigFactoryInterface
                         'import_constants' => true,
                         'import_functions' => true,
                     ],
-                    'single_line_empty_body' => true,
                 ]
             );
     }
