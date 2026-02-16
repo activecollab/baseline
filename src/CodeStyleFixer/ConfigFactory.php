@@ -43,7 +43,7 @@ class ConfigFactory implements ConfigFactoryInterface
 
     public function getConfig(): ConfigInterface
     {
-        return (new Config('psr2'))
+        return (new Config())
             ->setFinder($this->getFinder())
             ->setRules(
                 [
@@ -51,101 +51,7 @@ class ConfigFactory implements ConfigFactoryInterface
                         'header' => $this->getHeader(),
                         'location' => 'after_open',
                     ],
-                    '@PSR2' => true,
-                    '@Symfony' => true,
-                    'php_unit_fqcn_annotation' => true,
-                    'protected_to_private' => false,
-                    'no_whitespace_before_comma_in_array' => true,
-                    'whitespace_after_comma_in_array' => true,
-                    'no_multiline_whitespace_around_double_arrow' => true,
-                    'single_line_comment_style' => [
-                        'comment_types' => [
-                            'asterisk',
-                            'hash',
-                        ]
-                    ],
-                    'include' => true,
-                    'trailing_comma_in_multiline' => [
-                        'elements' => [
-                            'arrays',
-                            'arguments',
-                        ],
-                    ],
-                    'no_leading_namespace_whitespace' => true,
-                    'no_blank_lines_after_class_opening' => true,
-                    'no_blank_lines_after_phpdoc' => true,
-                    'phpdoc_scalar' => true,
-                    'phpdoc_summary' => true,
-                    'self_accessor' => false,
-                    'no_trailing_comma_in_singleline_array' => true,
-                    'space_after_semicolon' => true,
-                    'no_singleline_whitespace_before_semicolons' => true,
-                    'cast_spaces' => true,
-                    'standardize_not_equals' => true,
-                    'ternary_operator_spaces' => true,
-                    'trim_array_spaces' => true,
-                    'no_unused_imports' => true,
-                    'no_whitespace_in_blank_line' => true,
-                    'ordered_imports' => true,
-                    'array_syntax' => [
-                        'syntax' => 'short',
-                    ],
-                    'list_syntax' => [
-                        'syntax' => 'short',
-                    ],
-                    'braces' => false,
-                    'single_line_empty_body' => true,
-                    'braces_position' => [
-                        'functions_opening_brace' => 'next_line_unless_newline_at_signature_end',
-                    ],
-                    'increment_style' => false,
-                    'phpdoc_align' => true,
-                    'return_type_declaration' => true,
-                    'single_blank_line_at_eof' => true,
-                    'single_line_after_imports' => true,
-                    'single_quote' => true,
-                    'phpdoc_separation' => false,
-                    'phpdoc_no_package' => false,
-                    'no_mixed_echo_print' => false,
-                    'concat_space' => false,
-                    'simplified_null_return' => false,
-                    'blank_line_before_statement' => [
-                        'statements' => [
-                            'break',
-                            'continue',
-                            'declare',
-                            'return',
-                            'throw',
-                            'try',
-                        ]
-                    ],
-                    'class_attributes_separation' => [
-                        'elements' => [],
-                    ],
-                    'no_extra_blank_lines' => [
-                        'tokens' => [
-                            'extra',
-                        ]
-                    ],
-                    'linebreak_after_opening_tag' => true,
-                    'native_function_casing' => true,
-                    'no_closing_tag' => true,
-                    'no_empty_comment' => true,
-                    'no_empty_statement' => true,
-                    'no_leading_import_slash' => true,
-                    'constant_case' => [
-                        'case' => 'lower',
-                    ],
-                    'lowercase_cast' => true,
-                    'lowercase_keywords' => true,
-                    'yoda_style' => false,
-                    'single_line_throw' => false,
-                    'ordered_traits' => false,
-                    'global_namespace_import' => [
-                        'import_classes' => true,
-                        'import_constants' => true,
-                        'import_functions' => true,
-                    ],
+                    '@PER-CS3x0' => true,
                 ]
             );
     }
